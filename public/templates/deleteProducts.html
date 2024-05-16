@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Producto</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa; /* Color de fondo */
+            padding-top: 4rem; /* Ajuste para el navbar */
+            padding-bottom: 80px; /* Ajuste para evitar que el formulario se mezcle con el footer */
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #333; /* Color de texto */
+            text-align: center;
+            margin-bottom: 40px; /* Espacio inferior */
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff; /* Color de fondo del formulario */
+            padding: 30px;
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+        label {
+            color: #333; /* Color de texto de las etiquetas */
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input[type="text"] {
+            width: 100%; /* Ancho completo */
+            padding: 10px;
+            margin-bottom: 20px; /* Espacio inferior */
+            border: 1px solid #ccc; /* Borde */
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #dc3545; /* Color de fondo del botón (rojo) */
+            color: #fff; /* Color de texto del botón */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #c82333; /* Cambio de color al pasar el ratón */
+        }
+        /* Estilos para navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            font-size: 1.2rem;
+        }
+        .navbar-toggler {
+            border: none;
+        }
+        .navbar-nav .nav-link {
+            color: white;
+            margin-left: 15px;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #dee2e6;
+        }
+        /* Estilos para footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40; /* Color de fondo */
+            padding: 20px 0;
+            color: white; /* Color de texto */
+            text-align: center;
+            z-index: 1000;
+        }
+        .footer-text {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-lg-5">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shopping-bag me-2"></i>
+                Cucho Store - Menu clientes
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../templates/index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../templates/CrudProducts.html">Regresar</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1>Eliminar Producto</h1>
+                <form id="deleteProductForm">
+                    <div class="mb-3">
+                        <label for="producto" class="form-label">Nombre del Producto a Eliminar:</label>
+                        <input type="text" id="producto" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Eliminar Producto</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-3 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center footer-text">Copyright &copy; Cucho Store 2024</p>
+        </div>
+    </footer>
+
+    <!-- SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+
+    <script type="module">
+        import { CrudProducts } from '../js/menu.js';
+
+        const deleteProductForm = document.getElementById('deleteProductForm');
+
+        deleteProductForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const producto = document.getElementById('producto').value;
+
+            const crudProducts = new CrudProducts();
+            try {
+                const deleteResult = await crudProducts.delete(producto);
+                // Si la eliminación es exitosa, mostrar SweetAlert de éxito
+                Swal.fire(
+                    '¡Producto eliminado!',
+                    deleteResult.message,
+                    'success'
+                );
+                // Limpiar campo de entrada
+                document.getElementById('producto').value = '';
+            } catch (error) {
+                // Si hay un error, mostrar SweetAlert de error
+                Swal.fire(
+                    'Error',
+                    error.message,
+                    'error'
+                );
+            }
+        });
+    </script>
+</body>
+</html>

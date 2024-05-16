@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Cliente</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container-html {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .green-bar-html {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .form-group-html {
+            margin-bottom: 20px;
+        }
+        .form-label-html {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-input-html {
+            width: calc(100% - 40px);
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .select-wrapper-html {
+            position: relative;
+        }
+        .select-wrapper-html select {
+            width: calc(100% - 40px);
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 1.5;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+        .select-icon-html {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        .button-html {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 1.5;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .button-html:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40; /* Color de fondo */
+            padding: 20px 0;
+            color: white; /* Color de texto */
+            text-align: center;
+            z-index: 1000;
+        }
+        .footer-text {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body style="margin-bottom: 100px;">
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-lg-5">
+            <a class="navbar-brand" href="../templates/index.html">
+                <i class="fas fa-shopping-bag me-2 text-white"></i>
+                Cucho Store - Menu clientes
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../templates/CrudClientes.html">Regresar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-html">
+        <div class="green-bar-html">
+            <h1><i class="fas fa-user-edit"></i> Actualizar Cliente</h1>
+        </div>
+        <form id="formActualizarCliente">
+            <div class="form-group-html">
+                <label for="clientDNI" class="form-label-html"><i class="fas fa-id-card"></i> DNI del Cliente:</label>
+                <input type="number" id="clientDNI" class="form-input-html" placeholder="Ingrese el DNI del cliente">
+            </div>
+            <button id="btnBuscarCliente" type="submit" class="button-html"><i class="fas fa-search"></i> Buscar Cliente</button>
+            
+            
+            <div id="tarjetaActualizarGroup" style="display: none">
+                <div class="form-group-html">
+                    <label for="nombre" class="form-label-html"><i class="fas fa-user"></i> Nuevo Nombre:</label>
+                    <input type="text" id="nombre" class="form-input-html" placeholder="ingrese nombre">
+                </div>
+                <div class="form-group-html">
+                    <label for="apellido" class="form-label-html"><i class="fas fa-user"></i> Nuevo Apellido:</label>
+                    <input type="text" id="apellido" class="form-input-html" placeholder="ingrese apellido">
+                </div>
+                <div class="form-group-html">
+                    <label for="vip" class="form-label-html"><i class="fas fa-crown"></i> ¿Es VIP?</label>
+                    <div class="select-wrapper-html">
+                        <select id="vip" name="vip" class="form-input-html">
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div class="select-icon-html">
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+                <div id="campoDescuento" class="form-group-html" style="display: none;">
+                    <label for="descuento" class="form-label-html"><i class="fas fa-percent"></i> ¿Tiene tarjeta de descuento?</label>
+                    <div class="select-wrapper-html">
+                        <select id="descuento" name="descuento" class="form-input-html">
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div class="select-icon-html">
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </div>
+                </div>
+                <button id="btnActualizarCliente" type="button" class="button-html" style="display: none;"><i class="fas fa-sync-alt"></i> Actualizar Cliente</button>
+            
+        </form>
+    </div>
+    <footer class="footer-text">
+        <div class="container">
+            <p class="m-0">Copyright &copy; Cucho Store 2024</p>
+        </div>
+    </footer>
+    <!-- Footer -->
+    <footer class="py-3 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center footer-text">Copyright &copy; El Rosado 2024</p>
+        </div>
+    </footer>
+    <script type="module">
+        import { CrudClients } from '../js/menu.js';
+        import {Valida} from '../js/components.js'  
+    
+        const form = document.getElementById("formActualizarCliente");
+        const clientDNIInput = document.getElementById("clientDNI");
+        const nombreInput = document.getElementById("nombre");
+        const apellidoInput = document.getElementById("apellido");
+        const vipSelect = document.getElementById("vip");
+        const descuentoSelect = document.getElementById("descuento");
+        const tarjetaActualizarGroup = document.getElementById("tarjetaActualizarGroup");
+        const btnBuscarCliente = document.getElementById("btnBuscarCliente");
+        const btnActualizarCliente = document.getElementById("btnActualizarCliente");
+
+        document.querySelectorAll('input[type="text"]').forEach(function(input) {
+            input.addEventListener('input', function() {
+                this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚ\s]/g, ''); // Solo permite letras y espacios
+            });
+        });
+        document.getElementById("vip").addEventListener("change", function() {
+            var vip = this.value;
+            var campoDescuento = document.getElementById("campoDescuento");
+            if (vip === "no") {
+                campoDescuento.style.display = "block";
+            } else {
+                campoDescuento.style.display = "none";
+            }
+        });
+    
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const clientDNI = clientDNIInput.value;
+            const nombre = nombreInput.value;
+            const apellido = apellidoInput.value;
+            const vip = vipSelect.value;
+            const descuento =  document.getElementById("tarjetaDescuento") ? document.getElementById("tarjetaDescuento").value : null;
+    
+            const valida = new Valida();
+            const clienteRegistrado = valida.valida_unico_cedula(clientDNI); // Validar si el cliente está registrado
+    
+            if (clienteRegistrado) {
+                tarjetaActualizarGroup.style.display = "block"; // Mostrar el div si el cliente está registrado
+                btnBuscarCliente.style.display = "none";
+                btnActualizarCliente.style.display = "block";
+                clientDNIInput.disabled = true; // Deshabilitar el input del DNI
+                 // Asignar los datos del cliente
+            } else {
+                // Mostrar SweetAlert si el cliente no está registrado
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cliente no encontrado',
+                    text: 'El cliente con la cédula ingresada no está registrado.',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    btnActualizarCliente.addEventListener("click", function(event) {
+        event.preventDefault();
+        const clientDNI = clientDNIInput.value;
+        const nombre = nombreInput.value;
+        const apellido = apellidoInput.value;
+        const vip = vipSelect.value;
+        const descuento =  document.getElementById("tarjetaDescuento") ? document.getElementById("tarjetaDescuento").value : null;
+
+        // Mostrar cuadro de diálogo de confirmación
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: "Está a punto de actualizar los datos del cliente. ¿Desea continuar?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, actualizar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, proceder con la actualización
+                const crudClientes = new CrudClients();
+                crudClientes.update(clientDNI, nombre, apellido, vip, descuento);
+                // Mostrar SweetAlert de éxito
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cliente actualizado',
+                    text: 'El cliente ha sido actualizado correctamente.',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Limpiar campos después de la actualización
+                    clientDNIInput.value = "";
+                    nombreInput.value = "";
+                    apellidoInput.value = "";
+                    vipSelect.value = "si"; // Establecer valor predeterminado para VIP
+                    descuentoSelect.value = null; // Establecer valor predeterminado para Descuento
+
+                    // Ocultar el div de actualización y mostrar el botón de buscar
+                    tarjetaActualizarGroup.style.display = "none";
+                    btnBuscarCliente.style.display = "block";
+                    btnActualizarCliente.style.display = "none";
+                    campoDescuento.style.display = "none"
+                    clientDNIInput.disabled = false; // Habilitar el input del DNI
+                });
+            }
+        });
+    });
+    </script>    
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Producto</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa; /* Color de fondo */
+            padding-top: 4rem; /* Ajuste para el navbar */
+            padding-bottom: 80px; /* Ajuste para evitar que el formulario se mezcle con el footer */
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #333; /* Color de texto */
+            text-align: center;
+            margin-bottom: 40px; /* Espacio inferior */
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff; /* Color de fondo del formulario */
+            padding: 30px;
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+        label {
+            color: #333; /* Color de texto de las etiquetas */
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%; /* Ancho completo */
+            padding: 10px;
+            margin-bottom: 20px; /* Espacio inferior */
+            border: 1px solid #ccc; /* Borde */
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: green; /* Color de fondo del botón */
+            color: #fff; /* Color de texto del botón */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: green; /* Cambio de color al pasar el ratón */
+        }
+        /* Estilos para navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
+        .navbar-toggler {
+            border: none;
+        }
+        .navbar-nav .nav-link {
+            color: white;
+            margin-left: 15px;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #dee2e6;
+        }
+        /* Estilos para footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40; /* Color de fondo */
+            padding: 20px 0;
+            color: white; /* Color de texto */
+            text-align: center;
+            z-index: 1000;
+        }
+        .footer-text {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-lg-5">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shopping-bag me-2"></i>
+                Cucho Store - Menu clientes
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../templates/CrudProducts.html">Regresar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1>Crear Nuevo Producto</h1>
+                <form id="productForm">
+                    <label for="descripcion">Descripción</label>
+                    <input type="text" id="descripcion" class="form-control" required title="Descripción del producto">
+                    <label for="precio">Precio (hasta 2 decimales)</label>
+                    <input type="text" id="precio" class="form-control" required title="Precio del producto">
+                    <label for="stock">Stock</label>
+                    <input type="number" id="stock" class="form-control" required title="Cantidad en stock" min="0" step="1">
+                    <button type="submit" class="btn btn-primary mt-3">Crear Producto</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-3 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center footer-text">Copyright &copy; Cucho Store 2024</p>
+        </div>
+    </footer>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+
+    <script type="module">
+        import { CrudProducts } from '../js/menu.js';
+
+        const productForm = document.getElementById('productForm');
+
+        productForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const descripcion = document.getElementById('descripcion').value;
+            const precio = parseFloat(document.getElementById('precio').value);
+            const stock = parseInt(document.getElementById('stock').value);
+
+            const crudProducts = new CrudProducts();
+            const result = crudProducts.create(descripcion, precio, stock);
+
+            if (result === 'success') {
+                // Mostrar SweetAlert de éxito
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Producto agregado con éxito',
+                    showConfirmButton: true,
+                });
+
+                // Limpiar campos del formulario
+                document.getElementById('descripcion').value = '';
+                document.getElementById('precio').value = '';
+                document.getElementById('stock').value = '';
+            } else if (result === 'duplicate') {
+                // Mostrar SweetAlert de error
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El producto ya se encuentra agregado',
+                    showConfirmButton: true,
+                });
+            }
+        });
+
+        // Seleccionar el campo de precio
+        const precioInput = document.getElementById('precio');
+
+        // Escuchar el evento de entrada en el campo de precio
+        precioInput.addEventListener('input', function(event) {
+            // Obtener el valor actual del campo
+            let valor = event.target.value;
+
+            // Eliminar cualquier caracter que no sea un dígito o un punto decimal, excepto el primer punto decimal
+            valor = valor.replace(/[^\d.]/g, '').replace(/^(\d*\.)(.*)\./, '$1$2');
+
+            // Limitar la entrada a dos decimales
+            const partes = valor.split('.');
+            if (partes.length > 1) {
+                valor = partes[0] + '.' + partes[1].slice(0, 2);
+            }
+
+            // Actualizar el valor del campo con el nuevo valor filtrado
+            event.target.value = valor;
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const stockInput = document.getElementById('stock');
+
+            stockInput.addEventListener('input', function(event) {
+                // Obtener el valor actual del campo
+                let valor = event.target.value;
+
+                // Eliminar cualquier carácter que no sea un dígito
+                valor = valor.replace(/\D/g, '');
+
+                // Actualizar el valor del campo con el nuevo valor filtrado
+                event.target.value = valor;
+            });
+        });
+    </script>
+</body>
+</html>

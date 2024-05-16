@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Venta</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- SweetAlert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        /* Estilos personalizados */
+        body {
+            margin: 0;
+            background-color: #f8f9fa; /* Color de fondo */
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            color: #333; /* Color de texto */
+            text-align: center;
+            margin-bottom: 40px; /* Espacio inferior */
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff; /* Color de fondo del formulario */
+            padding: 30px;
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+        label {
+            color: #333; /* Color de texto de las etiquetas */
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%; /* Ancho completo */
+            padding: 10px;
+            margin-bottom: 20px; /* Espacio inferior */
+            border: 1px solid #ccc; /* Borde */
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: blueviolet; /* Color de fondo del botón */
+            color: #fff; /* Color de texto del botón */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: purple; /* Cambio de color al pasar el ratón */
+        }
+
+        /* Ajustes para el encabezado y el pie de página */
+        nav.navbar {
+            margin-bottom: 0;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40; /* Color de fondo del pie de página */
+            color: #fff; /* Color de texto del pie de página */
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* Estilos personalizados para SweetAlert */
+        .swal-overlay {
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+        }
+
+        .swal-modal {
+            background-color: #fff; /* Color de fondo del cuadro de diálogo */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra */
+            color: #333; /* Color de texto */
+        }
+
+        .swal-title {
+            font-size: 24px; /* Tamaño del título */
+            color: #333; /* Color del título */
+            margin-bottom: 20px; /* Espacio inferior */
+        }
+
+        .swal-text {
+            font-size: 16px; /* Tamaño del texto */
+            color: #555; /* Color del texto */
+        }
+
+        .swal-button {
+            padding: 10px 24px; /* Espaciado interno */
+            font-size: 16px; /* Tamaño del texto del botón */
+            border-radius: 5px; /* Bordes redondeados */
+            transition: background-color 0.3s ease; /* Transición suave */
+        }
+
+        .swal-button:not([disabled]):hover {
+            background-color: #6c757d; /* Cambio de color al pasar el ratón */
+        }
+
+        .swal-button:focus {
+            box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5); /* Sombra al enfocar */
+        }
+
+        .swal-button--confirm {
+            background-color: blueviolet; /* Color de fondo del botón de confirmación */
+            color: #fff; /* Color del texto del botón de confirmación */
+        }
+
+        .swal-button--cancel {
+            background-color: #6c757d; /* Color de fondo del botón de cancelación */
+            color: #fff; /* Color del texto del botón de cancelación */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shopping-bag me-2 text-white"></i>
+                Cucho Store - Consultar Producto
+            </a>
+            <!-- Enlace de salir -->
+            <a href="../templates/CrudSales.html" class="exit-button">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
+    </nav>
+
+    <!-- Formulario -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 form-container">
+                <h2 class="text-center mb-4">Eliminar Venta</h2>
+                <form id="formEliminarVenta">
+                    <!-- Campo para ingresar el número de factura de la venta a eliminar -->
+                    <div class="form-group">
+                        <div class="icon-container">
+                    
+                        </div>
+                        <input type="text" id="numeroFactura" name="numeroFactura" placeholder="Número de Factura de la Venta a Eliminar" pattern="\d+" title="Ingrese solo números" required>
+                    </div>
+
+                    <!-- Botón para eliminar la venta -->
+                    <button type="submit">Eliminar Venta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-3 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Cucho Store 2024</p>
+        </div>
+    </footer>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <!-- Script JavaScript -->
+    <script type="module">
+        import { CrudSales } from '../js/menu.js';
+    
+        // Escuchar el evento submit del formulario para eliminar venta
+        document.getElementById("formEliminarVenta").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+            // Recopilar el número de factura de la venta a eliminar
+            const numeroFacturaString = document.getElementById("numeroFactura").value;
+            const numeroFactura = parseInt(numeroFacturaString);
+            // Enviar el número de factura al método deleteInvoice de la clase CrudSales en menu.js
+            const crudSales = new CrudSales();
+            crudSales.delete(numeroFactura);
+
+            // Limpiar el campo del formulario si es necesario
+            document.getElementById("numeroFactura").value = "";
+        });
+
+        // Función para mostrar una notificación de éxito
+        function mostrarExito(mensaje) {
+            swal("Éxito", mensaje, "success");
+        }
+
+        // Función para mostrar una notificación de error
+        function mostrarError(mensaje) {
+            swal("Error", mensaje, "error");
+        }
+    </script>
+</body>
+</html>

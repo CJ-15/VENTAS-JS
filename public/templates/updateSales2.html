@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Cliente</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3jl5BjzHCkdR8kpL8jF6ggM3PYwfJgcQ/GCw5l7Luvf4yFhjw7Poj4hKG8JKNE7" crossorigin="anonymous">
+    <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa;
+            margin-top: 70px; /* Ajuste el margen superior para dejar espacio para la barra de navegación */
+            margin-bottom: 50px; /* Ajuste el margen inferior para separar el container y el footer */
+        }
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+        .container-html {
+            background-color: white;
+            border: 5px solid blueviolet;
+            border-radius: 20px;
+            padding: 40px;
+        }
+        /* Estilos adicionales para la tabla */
+        .form-input-html {
+            width: calc(100% - 32px);
+            padding: 10px;
+            border: 1px solid blueviolet;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .button-html {
+            background-color: blueviolet;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            float: right;
+        }
+        .button-html:hover {
+            background-color: #8a2be2;
+        }
+        /* Estilos para el footer */
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: fixed; /* Cambia la posición del footer a fija */
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> <!-- Añade la clase fixed-top para que la barra de navegación se mantenga fija en la parte superior -->
+        <div class="container px-lg-5">
+            <a class="navbar-brand" href="../templates/index.html">
+                <i class="fas fa-shopping-bag me-2 text-white"></i>
+                Cucho Store - Menu Ventas
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../templates/CrudSales.html">Regresar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="page-title">Menú de Actualización de Facturas</h1>
+    </div>
+    <div class="container">
+        <div class="container-html">
+            <form id="formActualizarFactura">
+                <!-- Agrega la clase 'table' para la tabla de Bootstrap -->
+                <table class="table form-table">
+                    <tr>
+                        <th>Nueva Fecha:</th>
+                        <td><input type="date" id="fecha" class="form-input-html"></td>
+                        <th>Nuevo Cliente (DNI):</th>
+                        <td><input type="number" id="dni" class="form-input-html" placeholder="Ingrese el nuevo DNI"></td>
+                    </tr>
+                    <tr>
+                        <th>Nuevo Cliente (Nombre):</th>
+                        <td><input type="text" id="nombre" class="form-input-html" placeholder="Ingrese el nuevo nombre"></td>
+                        <th>Nuevo Subtotal:</th>
+                        <td><input type="text" id="Subtotal" class="form-input-html" placeholder="Ingrese el nuevo subtotal"></td>
+                    </tr>
+                    <tr>
+                        <th>Nuevo Descuento:</th>
+                        <td><input type="text" id="Descuento" class="form-input-html" placeholder="Ingrese el nuevo descuento"></td>
+                        <th>Nuevo IVA:</th>
+                        <td><input type="text" id="Iva" class="form-input-html" placeholder="Ingrese el nuevo IVA"></td>
+                    </tr>
+                    <tr>
+                        <th>Nuevo Total:</th>
+                        <td colspan="3"><input type="text" id="Total" class="form-input-html" placeholder="Ingrese el nuevo total"></td>
+                    </tr>
+                </table>
+                <button type="submit" class="button-html">Actualizar Factura</button>
+            </form>
+        </div>
+    </div>
+    <footer class="py-3 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center footer-text">Copyright &copy; El Rosado 2024</p>
+        </div>
+    </footer>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-+0G8H/YU3I+AiX+md1K8Lg9GwCtf3fv3dXpNwkfQ/L+5vbzPcPgS3fb2KRgZJGjZ" crossorigin="anonymous"></script>
+    <!-- Your custom script -->
+    <script type="module">
+        import { CrudSales } from '../js/menu.js';
+        import JsonFile from '../js/clsJson.js';
+        import {Valida} from '../js/components.js'
+    
+        document.getElementById('Subtotal').addEventListener('input', function(event) {
+            this.value = this.value.replace(/[^\d.]/g, '');
+            this.value = this.value.replace(/^(\d+\.\d{0,2}).*/g, '$1');
+        });
+    
+        document.getElementById('Descuento').addEventListener('input', function(event) {
+            this.value = this.value.replace(/[^\d.]/g, '');
+            this.value = this.value.replace(/^(\d+\.\d{0,2}).*/g, '$1');
+        });
+    
+        document.getElementById('Iva').addEventListener('input', function(event) {
+            this.value = this.value.replace(/[^\d.]/g, '');
+            this.value = this.value.replace(/^(\d+\.\d{0,2}).*/g, '$1');
+        });
+    
+        document.getElementById('Total').addEventListener('input', function(event) {
+            this.value = this.value.replace(/[^\d.]/g, '');
+            this.value = this.value.replace(/^(\d+\.\d{0,2}).*/g, '$1');
+        });
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const facturaId = urlParams.get('facturaId');
+    
+            if (facturaId) {
+                const json_file = new JsonFile('invoicesData')
+                let invoice = json_file.find('factura', parseInt(facturaId))
+                console.log(invoice)
+                let invoices = invoice[0]
+                console.log(invoices)
+                console.log(facturaId)
+                console.log(invoices.Fecha)
+    
+                // Aquí puedes hacer una solicitud AJAX para obtener los datos de la factura desde tu backend
+                // Por ahora, simplemente mostraré un ejemplo de cómo rellenar los campos con datos ficticios
+                const datosFactura = {
+                    fecha: invoices.Fecha,
+                    dni: invoices.dni,
+                    nombre: invoices.cliente,
+                    subtotal: invoices.subtotal,
+                    descuento: invoices.descuento,
+                    iva: invoices.iva,
+                    total: invoices.total
+                };
+    
+                // Rellenar los campos del formulario con los datos existentes
+                document.getElementById('fecha').value = datosFactura.fecha;
+                document.getElementById('dni').value = datosFactura.dni;
+                document.getElementById('nombre').value = datosFactura.nombre;
+                document.getElementById('Subtotal').value = datosFactura.subtotal;
+                document.getElementById('Descuento').value = datosFactura.descuento;
+                document.getElementById('Iva').value = datosFactura.iva;
+                document.getElementById('Total').value = datosFactura.total;
+            }
+        });
+    
+        const formActualizarFactura = document.getElementById('formActualizarFactura');
+    
+        formActualizarFactura.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const urlParams = new URLSearchParams(window.location.search);
+            const facturaId = urlParams.get('facturaId');
+            const fecha = document.getElementById('fecha').value;
+            const dni = document.getElementById('dni').value;
+            const nombre = document.getElementById('nombre').value;
+            const subtotal = document.getElementById('Subtotal').value;
+            const descuento = document.getElementById('Descuento').value;
+            const iva = document.getElementById('Iva').value;
+            const total = document.getElementById('Total').value;
+
+            const valida = new Valida();
+            const invoicedni = valida.valida_unico_cedula(dni);
+            if (invoicedni){
+                Swal.fire({
+                    title: '¿Estás seguro de actualizar la factura?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, actualizar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const crudinvoices = new CrudSales();
+                        crudinvoices.update(fecha, dni, nombre, subtotal, descuento, iva, total, facturaId);
+                        // Limpiar los campos de entrada después de actualizar
+                        document.getElementById('fecha').value = '';
+                        document.getElementById('dni').value = '';
+                        document.getElementById('nombre').value = '';
+                        document.getElementById('Subtotal').value = '';
+                        document.getElementById('Descuento').value = '';
+                        document.getElementById('Iva').value = '';
+                        document.getElementById('Total').value = '';
+                        
+                        // Mostrar alerta de éxito después de actualizar
+                        Swal.fire(
+                            'Factura actualizada!',
+                            'La factura ha sido actualizado con éxito.',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'updateSales.html'; // Reemplaza 'nueva_pagina.html' con la URL de la página a la que quieres redirigir al usuario
+                            }
+                        });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // Mostrar alerta de acción cancelada
+                        Swal.fire(
+                            'Acción cancelada',
+                            'No se ha realizado ninguna actualización.',
+                            'info'
+                        );
+                    }
+                });
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cedula no encontrada',
+                    text: 'La cedula no está registrada.',
+                    confirmButtonText: 'OK'
+                });
+            }
+            // Mostrar alerta de confirmación antes de actualizar
+        });
+    </script>
+</body>
+</html>

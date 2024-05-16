@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Producto</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilo para los títulos de las tablas */
+        .titulo-tabla-productos {
+            background-color: #28a745; /* Verde */
+            color: white;
+        }
+
+        .titulo-tabla-clientes {
+            background-color: #007bff; /* Azul */
+            color: white;
+        }
+
+        .titulo-tabla-ventas {
+            background-color: blueviolet; /* Morado */
+            color: white;
+        }
+
+        .titulo-tabla {
+            padding: 10px 15px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            margin-top: 0; /* Eliminar margen superior */
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .container-fluid {
+            margin-top: 20px;
+        }
+        
+        .table-container {
+            margin-top: 30px;
+        }
+
+        /* Eliminar padding de la clase .card-body */
+        .card-body {
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shopping-bag me-2 text-white"></i>
+                Cucho Store - Consultar Producto
+            </a>
+            <!-- Enlace de salir -->
+            <a href="../templates/index.html" class="exit-button">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
+    </nav>
+
+    <!-- Tablas -->
+    <div class="container-fluid">
+        <!-- Tabla: Producto con Mayor Stock -->
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="titulo-tabla titulo-tabla-productos">Producto con Mayor Stock</h2>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableMayorStock">
+                                <!-- Aquí se llenará con la información obtenida desde JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla: Producto con Menor Stock -->
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="titulo-tabla titulo-tabla-productos">Producto con Menor Stock</h2>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableMenorStock">
+                                <!-- Aquí se llenará con la información obtenida desde JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla: Clientes con Más Facturas -->
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="titulo-tabla titulo-tabla-clientes">Clientes con Más Facturas</h2>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>DNI</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Valor</th>
+                                    <th>Número de Facturas</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableMasFacturas">
+                                <!-- Aquí se llenará con la información obtenida desde JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla: Facturas con Mayor Valor -->
+        <div class="table-container">
+            <h2 class="titulo-tabla titulo-tabla-ventas">Facturas con Mayor Valor</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Factura</th>
+                        <th>Fecha</th>
+                        <th>DNI</th>
+                        <th>Cliente</th>
+                        <th>Subtotal</th>
+                        <th>Descuento</th>
+                        <th>IVA</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tableMayorValor">
+                    <!-- Aquí se llenará con la información obtenida desde JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tabla: Facturas con Menor Valor -->
+        <div class="table-container">
+            <h2 class="titulo-tabla titulo-tabla-ventas">Facturas con Menor Valor</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Factura</th>
+                        <th>Fecha</th>
+                        <th>DNI</th>
+                        <th>Cliente</th>
+                        <th>Subtotal</th>
+                        <th>Descuento</th>
+                        <th>IVA</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tableMenorValor">
+                    <!-- Aquí se llenará con la información obtenida desde JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Scripts de Bootstrap y JavaScript -->
+    <!-- Incluye los scripts de Bootstrap y tus scripts de JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../js/menu.js"></script>
+    <script type="module">
+        import { ConsultasGenerales } from '../js/menu.js';
+    
+        // Llamar a la función para cargar y mostrar los datos
+        ConsultasGenerales();
+    </script>
+</body>
+</html>

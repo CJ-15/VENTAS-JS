@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Producto</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa; /* Color de fondo */
+            padding-top: 4rem; /* Ajuste para el navbar */
+            padding-bottom: 80px; /* Ajuste para evitar que el formulario se mezcle con el footer */
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #333; /* Color de texto */
+            text-align: center;
+            margin-bottom: 40px; /* Espacio inferior */
+        }
+        form {
+            max-width: 600px; /* Ancho máximo del formulario */
+            margin: 0 auto; /* Centrar el formulario */
+            padding: 30px;
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+        label {
+            color: #333; /* Color de texto de las etiquetas */
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%; /* Ancho completo */
+            padding: 10px;
+            margin-bottom: 20px; /* Espacio inferior */
+            border: 1px solid #ccc; /* Borde */
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745; /* Color de fondo del botón (verde) */
+            color: #fff; /* Color de texto del botón */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #218838; /* Cambio de color al pasar el ratón */
+        }
+        /* Estilos para navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
+        .navbar-toggler {
+            border: none;
+        }
+        .navbar-nav .nav-link {
+            color: white;
+            margin-left: 15px;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #dee2e6;
+        }
+        /* Estilos para footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40; /* Color de fondo */
+            padding: 20px 0;
+            color: white; /* Color de texto */
+            text-align: center;
+            z-index: 1000;
+        }
+        .footer-text {
+            font-size: 14px;
+        }
+        /* Estilos para campos inválidos */
+        .invalid {
+            border-color: red; /* Cambiar el color del borde */
+            box-shadow: 0 0 5px red; /* Añadir sombra roja */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-lg-5">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shopping-bag me-2"></i>
+                El Rosado - Menu clientes
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../templates/index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../templates/CrudProducts.html">Regresar</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1>Actualizar Producto</h1>
+                <form id="updateProductForm">
+                    <div class="mb-3">
+                        <label for="productId" class="form-label">ID del Producto a Actualizar:</label>
+                        <input type="number" id="productId" class="form-control" required>
+                    </div>
+                    <button type="button" id="showFieldsButton" class="btn btn-primary">Mostrar Detalles</button>
+                    <div id="additionalFields" style="display: none;">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="newDescripcion" class="form-label">Nuevo Nombre:</label>
+                                <input type="text" id="newDescripcion" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="newPrecio" class="form-label">Nuevo Precio:</label>
+                                <input type="float" id="newPrecio" class="form-control" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="newStock" class="form-label">Nuevo Stock:</label>
+                                <input type="number" id="newStock" class="form-control" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success mt-3">Actualizar Producto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-3 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center footer-text">Copyright &copy; El Rosado 2024</p>
+        </div>
+    </footer>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+
+    <script type="module">
+        import { CrudProducts } from '../js/menu.js'
+        import { Valida } from '../js/components.js'
+        
+        const updateProductForm = document.getElementById('updateProductForm');
+        const showFieldsButton = document.getElementById('showFieldsButton');
+        const additionalFields = document.getElementById('additionalFields');
+        const newPrecioInput = document.getElementById('newPrecio');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Validar que solo se ingresen números enteros en campos numéricos
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                input.addEventListener('input', () => {
+                    input.value = input.value.replace(/\D/g, '');
+                });
+            });
+
+            // Validar que solo se ingresen letras y espacios en campos de texto
+            document.querySelectorAll('input[type="text"]').forEach(input => {
+                input.addEventListener('input', () => {
+                    input.value = input.value.replace(/[^A-Za-z\s]/g, '');
+                });
+            });
+
+            newPrecioInput.addEventListener('input', () => {
+                // Se permite ingresar solo números y hasta dos decimales
+                newPrecioInput.value = newPrecioInput.value.replace(/[^0-9.]/g, ''); // Solo permite números y punto decimal
+                if (/^\d*\.?\d{0,2}$/.test(newPrecioInput.value) === false) { // Verifica si el formato es válido
+                    // Si el formato no es válido, se bloquea la entrada
+                    newPrecioInput.classList.add('invalid'); // Agrega la clase para resaltar el campo inválido
+                    newPrecioInput.disabled = true; // Deshabilita temporalmente el campo
+                } else {
+                    newPrecioInput.classList.remove('invalid'); // Quita la clase si el campo es válido
+                    newPrecioInput.disabled = false; // Habilita el campo
+                }
+            });
+        });
+
+        showFieldsButton.addEventListener('click', () => {
+            const productId = parseInt(document.getElementById('productId').value);
+            const valida = new Valida();
+            const productoRegistrado = valida.valida_producto(productId); // Validar si el producto está registrado
+            if (productoRegistrado) {
+                additionalFields.style.display = 'block'; // Mostrar el div si el producto está registrado
+                showFieldsButton.style.display = "none";
+                document.getElementById('productId').disabled = true; // Deshabilitar el input del ID del producto
+                // Asignar los datos del producto
+            } else {
+                // Mostrar SweetAlert si el producto no está registrado
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Producto no encontrado',
+                    text: 'El Producto ingresado no está registrado.',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+
+        updateProductForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const productId = parseInt(document.getElementById('productId').value);
+            const newDescripcion = document.getElementById('newDescripcion').value;
+            const newPrecio = parseFloat(document.getElementById('newPrecio').value);
+            const newStock = parseInt(document.getElementById('newStock').value);
+
+            Swal.fire({
+                title: '¿Estás seguro de actualizar el producto?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, actualizar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const crudProducts = new CrudProducts();
+                    crudProducts.update(productId, newDescripcion, newPrecio, newStock);
+
+                    additionalFields.style.display = 'none'; // Ocultar el div después de la actualización
+                    showFieldsButton.style.display = " block";
+                    document.getElementById('productId').disabled = false; // Deshabilitar el input del ID del producto
+
+                    // Limpiar los campos después de la actualización
+                    document.getElementById('productId').value = '';
+                    document.getElementById('newDescripcion').value = '';
+                    document.getElementById('newPrecio').value = '';
+                    document.getElementById('newStock').value = '';
+
+                    Swal.fire(
+                        '¡Producto actualizado!',
+                        'El producto ha sido actualizado con éxito.',
+                        'success'
+                    );
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Acción cancelada',
+                        'No se ha realizado ninguna actualización.',
+                        'info'
+                    );
+                }
+            });
+        });
+    </script>
+</body>
+</html>

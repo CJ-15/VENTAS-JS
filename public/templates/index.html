@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cucho Store - CUCHO-RQ</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+    .feature-clientes {
+        background-color: blue; /* Color para clientes */
+    }
+
+    .feature-productos {
+        background-color: green; 
+    }
+
+    .feature-ventas {
+        background-color: blueviolet; 
+    }
+
+    .feature-consultas {
+        background-color: red;
+    }
+
+    .feature-clientes i,
+    .feature-productos i,
+    .feature-ventas i,
+    .feature-consultas i {
+        color: white;
+    }
+        .footer-text {
+            color: white; 
+        }
+    </style>
+</head>
+<body>
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-lg-5">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shopping-bag me-2 text-white"></i>
+                Cucho Store
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header-->
+    <header class="py-5">
+    </header>
+    <!-- Page Content-->
+    <section class="pt-4">
+        <div class="container px-lg-5">
+            <!-- Page Features-->
+            <div class="row gx-lg-5">
+                <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="card bg-light border-0 h-100 card-custom"> <!-- Agrega la clase card-custom aquí -->
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <a href="../templates/CrudClientes.html" class="text-decoration-none">
+                                <div class="feature feature-clientes text-white rounded-3 mb-4 mt-n4">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </a>
+                            <h2 class="fs-4 fw-bold">Clientes</h2>
+                            <p class="mb-0">Agrega, Elimina, Edita, Consulta</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Resto de las tarjetas -->
+                <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="card bg-light border-0 h-100 card-custom">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <a href="../templates/CrudProducts.html" class="text-decoration-none">
+                                <div class="feature feature-productos text-white rounded-3 mb-4 mt-n4">
+                                    <i class="fas fa-box-open"></i>
+                                </div>
+                            </a>
+                            <h2 class="fs-4 fw-bold">Productos</h2>
+                            <p class="mb-0">Agrega, Elimina, Edita, Consulta</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="card bg-light border-0 h-100 card-custom">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <a href="../templates/CrudSales.html" class="text-decoration-none">
+                                <div class="feature feature-ventas text-white rounded-3 mb-4 mt-n4">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                            </a>
+                            <h2 class="fs-4 fw-bold">Ventas</h2>
+                            <p class="mb-0">Agrega, Elimina, Edita, Consulta</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="card bg-light border-0 h-100 card-custom">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <a href="../templates/consultGeneral.html" class="text-decoration-none">
+                                <div class="feature feature-consultas text-white rounded-3 mb-4 mt-n4">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </a>
+                            <h2 class="fs-4 fw-bold">Consultas Generales</h2>
+                            <p class="mb-0">Observa todos tus datos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center footer-text">Copyright &copy; Cucho Store 2024</p> <!-- Agrega la clase footer-text aquí -->
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+</body>
+</html>

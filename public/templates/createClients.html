@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cliente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0; /* Añadido para eliminar el margen predeterminado del body */
+            padding-bottom: 60px; /* Añadido para dejar espacio al footer */
+        }
+    
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            max-width: 100%;
+            margin-bottom: 80px; /* Añadido para evitar que el formulario se superponga con el footer */
+        }
+    
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+    
+        .icon-container {
+            background-color: #007bff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+        }
+    
+        .form-group i {
+            color: #fff;
+        }
+    
+        .form-group input,
+        .form-group select {
+            flex: 1;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+    
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    
+        button[type="submit"]:active {
+            transform: translateY(1px);
+        }
+    
+        .footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 20px 0;
+            width: 100%;
+            position: fixed; /* Cambiado a posición fija */
+            bottom: 0; /* Colocado en la parte inferior de la pantalla */
+            left: 0;
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-lg-5">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shopping-bag me-2 text-white"></i>
+                Cucho Store - Menu clientes
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../templates/CrudClientes.html">Regresar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 form-container">
+                <h2 class="text-center mb-4">Crear Cliente</h2>
+                <form id="formCrearCliente">
+                    <div class="form-group">
+                        <div class="icon-container">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <input type="number" id="dni" name="dni" placeholder="DNI" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="icon-container">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="icon-container">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="icon-container">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <label for="vip">¿Es cliente VIP?</label>
+                        <select id="vip" name="vip">
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div id="tarjetaDescuentoGroup" style="display: none">
+                        <div class="form-group">
+                            <div class="icon-containe">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <label for="tarjetaDescuento">¿Tiene tarjeta de descuento?</label>
+                            <select id="tarjetaDescuento" name="tarjetaDescuento">
+                                <option value="si">Sí</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit">Guardar Cliente</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="m-0 text-center">Copyright &copy; Cucho Store 2024</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <!-- Incluir SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script type="module">
+        import {CrudClients} from '../js/menu.js'
+        import {Valida} from '../js/components.js'
+
+        document.querySelectorAll('input[type="text"]').forEach(function(input) {
+            input.addEventListener('input', function() {
+                this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚ\s]/g, ''); // Solo permite letras y espacios
+            });
+        });
+
+        document.getElementById('dni').addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, ''); // Solo permite números
+        });
+        
+        document.getElementById("vip").addEventListener("change", function() {
+            var vip = this.value;
+            var tarjetaDescuentoGroup = document.getElementById("tarjetaDescuentoGroup");
+            if (vip === "no") {
+                tarjetaDescuentoGroup.style.display = "block";
+            } else {
+                tarjetaDescuentoGroup.style.display = "none";
+            }
+        });
+    
+        document.getElementById("formCrearCliente").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            // Guardar los valores del formulario
+            var dni = document.getElementById("dni").value;
+            var nombre = document.getElementById("nombre").value;
+            var apellido = document.getElementById("apellido").value;
+            var vip = document.getElementById("vip").value;
+            var descuento = document.getElementById("tarjetaDescuento") ? document.getElementById("tarjetaDescuento").value : null;
+            
+            // Validar la cédula utilizando la clase Valida
+            const valida = new Valida();
+            const cedulaValida = valida.cedulaDecorador(dni);
+    
+            // Verificar si el cliente ya está registrado
+            const clienteRegistrado = valida.valida_unico_cedula(dni);
+    
+            // Si la cédula es válida y el cliente no está registrado, continuar con el envío del formulario
+            if (cedulaValida && !clienteRegistrado) {
+                // Mostrar SweetAlert para confirmar la acción
+                const result = await Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¿Quieres guardar este cliente?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, guardar',
+                    cancelButtonText: 'Cancelar'
+                });
+    
+                // Si el usuario confirma la acción
+                if (result.isConfirmed) {
+                    // Llamar a la función create de la clase CrudClients en menu.js y pasarle los valores del formulario como argumentos
+                    const crudClientes = new CrudClients();
+                    // Llamar a la función "create"
+                    crudClientes.create(dni, nombre, apellido, vip, descuento, result.isConfirmed);
+                    // Limpiar los campos del formulario
+                    document.getElementById("dni").value = "";
+                    document.getElementById("nombre").value = "";
+                    document.getElementById("apellido").value = "";
+                    document.getElementById("vip").value = "si"; 
+                }
+            } else if (!cedulaValida) {
+                // Mostrar un mensaje de error con SweetAlert indicando que la cédula ingresada no es válida
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'La cédula ingresada no es válida. Por favor, inténtelo de nuevo.'
+                });
+            } else if (clienteRegistrado) {
+                // Mostrar un mensaje de error con SweetAlert indicando que el cliente ya está registrado
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El cliente ya está registrado en el sistema.'
+                });
+            }
+        });
+    </script>
+    
+    
+</body>
+</html>

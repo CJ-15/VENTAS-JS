@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Cliente</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa; /* Color de fondo */
+            padding-top: 4rem; /* Ajuste para el navbar */
+            padding-bottom: 80px; /* Ajuste para evitar que el formulario se mezcle con el footer */
+            font-family: Arial, sans-serif;
+        }
+        
+        .container-html {
+            max-width: 500px; /* Ancho máximo aumentado */
+            margin: 0 auto; /* Centrado horizontal */
+            background-color: #fff; /* Color de fondo del formulario */
+            padding: 30px;
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+        .green-bar-html {
+            background-color: blueviolet; /* Color de fondo de la barra verde */
+            color: white; /* Color del texto */
+            text-align: center;
+            margin-bottom: 40px; /* Espacio inferior */
+            padding: 10px 0; /* Espacio interno */
+            border-radius: 8px; /* Bordes redondeados */
+        }
+        .form-group-html {
+            margin-bottom: 20px; /* Espacio inferior */
+        }
+        .form-label-html {
+            color: #333; /* Color de texto de las etiquetas */
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        .form-input-html {
+            width: 100%; /* Ancho completo */
+            padding: 10px;
+            margin-bottom: 20px; /* Espacio inferior */
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .button-html {
+            width: 100%; /* Ancho completo */
+            background-color: blueviolet; /* Color de fondo del botón */
+            color: #fff; /* Color de texto del botón */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .button-html:hover {
+            background-color: darkviolet; /* Cambio de color al pasar el ratón */
+        }
+        /* Estilos para footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40; /* Color de fondo */
+            padding: 20px 0;
+            color: white; /* Color de texto */
+            text-align: center;
+            z-index: 1000;
+        }
+        .footer-text {
+            font-size: 14px;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-lg-5">
+            <a class="navbar-brand" href="../templates/index.html">
+                <i class="fas fa-shopping-bag me-2 text-white"></i>
+                Cucho Store - Menu clientes
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../templates/CrudSales.html">Regresar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Formulario -->
+        <div class="container mt-5">
+            <div class="container-html">
+                <div class="row justify-content-center">
+                    <div class="green-bar-html">
+                        <h1> Actualizar Factura</h1>
+                    </div>
+                    <form id="updateForm">
+                        <div class="form-group-html">
+                            <label for="facturaid" class="form-label-html"><i class="fas fa-id-card"></i> ID de la Factura:</label>
+                            <input type="number" id="facturaid" class="form-input-html" placeholder="Ingrese el ID de la factura" required>
+                        </div>
+                        <button id="btnUpdate" type="submit" class="button-html">Buscar Factura</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <!-- Footer -->
+    <footer>
+        <p class="m-0">Copyright &copy; El rosado 2024</p>
+    </footer>
+    <script type="module">
+        import JsonFile from '../js/clsJson.js';
+        import { Valida } from '../js/components.js';
+
+        document.getElementById("updateForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+            const facturaId = parseInt(document.getElementById('facturaid').value);
+            const json_file = new JsonFile('invoicesData');
+            const valida = new Valida();
+            const invoiceFound = valida.valida_unica_factura(facturaId); // Validar si la factura está registrada
+
+            if (invoiceFound) {
+                // Redirigir a la segunda página con el ID de la factura como parámetro
+                window.location.href = `updateSales2.html?facturaId=${facturaId}`;
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Factura no encontrada',
+                    text: 'La factura con el ID ingresado no está registrada.',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

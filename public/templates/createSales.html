@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crear Venta - El Rosado</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet">
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa; /* Color de fondo */
+            padding-top: 4rem; /* Ajuste para el navbar */
+            padding-bottom: 80px; /* Ajuste para evitar que el formulario se mezcle con el footer */
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #333; /* Color de texto */
+            text-align: center;
+            margin-bottom: 40px; /* Espacio inferior */
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff; /* Color de fondo del formulario */
+            padding: 30px;
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+        label {
+            color: #333; /* Color de texto de las etiquetas */
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input[type="text"],
+        input[type="number"],
+        .btn {
+            width: 100%; /* Ancho completo */
+            padding: 10px;
+            margin-bottom: 20px; /* Espacio inferior */
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button[type="submit"],
+        .btn-primary {
+            background-color: blueviolet; /* Color de fondo del botón */
+            color: #fff; /* Color de texto del botón */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover,
+        .btn-primary:hover {
+            background-color: blueviolet; /* Cambio de color al pasar el ratón */
+        }
+        /* Estilos para navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        /* Estilos para footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40; /* Color de fondo */
+            padding: 20px 0;
+            color: white; /* Color de texto */
+            text-align: center;
+            z-index: 1000;
+        }
+        .footer-text {
+            font-size: 14px;
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-lg-5">
+            <a class="navbar-brand" href="../templates/index.html">
+                <i class="fas fa-shopping-bag me-2 text-white"></i>
+                Cucho Store - Menu clientes
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../templates/CrudSales.html">Regresar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <!-- Formulario -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 form-container" >
+                <h1>Crear Venta</h1>
+                <form id="formCrearVenta">
+                    <div class="form-group">
+                        <div class="icon-container">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <input type="number" id="clienteDNI" name="clienteDNI" class="form-control" placeholder="Cédula del Cliente" pattern="\d*" title="Ingrese solo números" required>
+                        <button id="btnBuscarCliente" type="button" class="btn btn-primary"><i class="fas fa-search"></i> Buscar Cliente</button>                        
+                    </div>
+                    <!-- Contenedor para los campos de productos -->
+                    <div id="productosContainer" class="table-responsive" style="display: none;">
+                        
+                        <table id="productosTable" class="table">
+                            <thead style="display: none;">
+                                <tr>
+                                    <th>ID Producto</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Aquí se agregarán las filas de productos dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    
+                    <div id="buttonsDiv" class="text-center" style="display: none;">
+                        <button type="button" id="btnAgregarProducto" class="btn btn-primary">Agregar Producto</button>
+                        <button type="submit" id="btnCrearVenta" class="btn btn-primary">Crear Venta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="py-3 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center footer-text">Copyright &copy; El Rosado 2024</p>
+        </div>
+    </footer>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/menu.js" type="module"></script>
+
+    <script type="module">
+        import { CrudSales } from '../js/menu.js';
+        import { Valida } from '../js/components.js';
+    
+        // Esperar a que el documento esté completamente cargado
+        document.addEventListener("DOMContentLoaded", function() {
+    
+            // Seleccionar los elementos una vez que el documento esté cargado
+            const productosContainer = document.getElementById("productosContainer");
+            const btnBuscarCliente = document.getElementById("btnBuscarCliente");
+            const btnAgregarProducto = document.getElementById("btnAgregarProducto");
+            const formCrearVenta = document.getElementById("formCrearVenta");
+    
+            btnBuscarCliente.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                const dniInput = document.getElementById("clienteDNI");
+                dniInput.disabled = true; // Deshabilitar la modificación del input
+
+                const dni = dniInput.value;
+                const valida = new Valida();
+                const clienteRegistrado = valida.valida_unico_cedula(dni);
+
+                if (clienteRegistrado) {
+                    productosContainer.style.display = "block";
+                    buttonsDiv.style.display = "block";
+                    btnBuscarCliente.style.display = "none"; // Ocultar el botón de "Buscar Cliente"
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Cliente no encontrado',
+                        text: 'El cliente con la cédula ingresada no está registrado.',
+                        confirmButtonText: 'OK'
+                    });
+                    dniInput.disabled = false; // Habilitar el input si el cliente no está registrado
+                }
+            });
+
+            btnAgregarProducto.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                // Mostrar los encabezados de la tabla al hacer clic en el botón "Agregar Producto"
+                document.getElementById("productosTable").querySelector("thead").style.display = "table-header-group";
+
+                const newRowHtml = `
+                    <tr class="producto">
+                        <td><input type="number" class="form-control idProducto" placeholder="ID Producto" pattern="\d*" title="Ingrese solo números" required></td>
+                        <td><input type="number" class="form-control cantidadProducto" placeholder="Cantidad" required></td>
+                    </tr>
+                `;
+                document.querySelector("#productosContainer table tbody").insertAdjacentHTML('beforeend', newRowHtml);
+            });
+
+            formCrearVenta.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const dniInput = document.getElementById("clienteDNI"); // Obtener el input del DNI
+                dniInput.disabled = false; // Habilitar el input después de crear la venta
+
+                const dni = dniInput.value;
+                const products = [];
+                const productInputs = document.querySelectorAll('.producto');
+
+                productInputs.forEach(input => {
+                    const productId = input.querySelector('.idProducto').value;
+                    const productName = 'xd';
+                    const productQuantity = input.querySelector('.cantidadProducto').value;
+
+                    if (productId && productName && productQuantity) {
+                        products.push({ id: productId, nombre: productName, cantidad: productQuantity });
+                    }
+                });
+
+                const crudSales = new CrudSales();
+                const instancia = crudSales.create(dni, products);
+
+                if (instancia.length > 0) {
+                    let error_mensaje = '';
+                    instancia.forEach(product => {
+                        error_mensaje += `\nID: ${JSON.stringify(product.id)}. `;
+                    });
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al crear la venta',
+                        text: `Algunos productos no se encontraron en stock.\n ${error_mensaje}`,
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Venta creada',
+                        text: 'La factura se ha guardado exitosamente.',
+                        confirmButtonText: 'OK'
+                    });
+                    productosContainer.style.display = "none";
+                    buttonsDiv.style.display = "none";
+                    dniInput.value = ""; // Limpiar el valor del input del DNI
+                    productosContainer.querySelector("tbody").innerHTML = "";
+                    btnBuscarCliente.style.display = "block"; // Mostrar nuevamente el botón "Buscar Cliente"
+                }
+            });
+
+        });
+    </script>
+    
+</body>
+</html>
